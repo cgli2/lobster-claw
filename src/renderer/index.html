@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';">
+  <title>OpenClaw 安装管理器</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/wizard.css">
+  <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+  <!-- Wizard View -->
+  <section id="wizard-view" class="view">
+    <div class="wizard-layout">
+      <aside class="wizard-sidebar">
+        <div class="wizard-logo">
+          <div class="logo-icon">OC</div>
+          <h2>OpenClaw</h2>
+          <p class="subtitle">安装管理器</p>
+        </div>
+        <div class="wizard-steps">
+          <div class="step-item active" data-step="0">
+            <div class="step-dot"></div>
+            <span>欢迎</span>
+          </div>
+          <div class="step-item" data-step="1">
+            <div class="step-dot"></div>
+            <span>环境检测</span>
+          </div>
+          <div class="step-item" data-step="2">
+            <div class="step-dot"></div>
+            <span>安装</span>
+          </div>
+          <div class="step-item" data-step="3">
+            <div class="step-dot"></div>
+            <span>配置</span>
+          </div>
+          <div class="step-item" data-step="4">
+            <div class="step-dot"></div>
+            <span>完成</span>
+          </div>
+        </div>
+      </aside>
+      <main class="wizard-content" id="wizard-content">
+        <!-- Dynamic content injected by JS -->
+      </main>
+    </div>
+  </section>
+
+  <!-- Dashboard View -->
+  <section id="dashboard-view" class="view hidden">
+    <header class="dashboard-header">
+      <div class="header-left">
+        <div class="header-logo">OC</div>
+        <h1>OpenClaw 管理面板</h1>
+      </div>
+      <div class="header-right">
+        <span class="version-badge" id="version-badge">v-</span>
+      </div>
+    </header>
+    <div class="dashboard-body">
+      <nav class="tab-nav" id="tab-nav">
+        <button class="tab-item active" data-tab="status">状态监控</button>
+        <button class="tab-item" data-tab="chat">智能对话</button>
+        <button class="tab-item" data-tab="service">服务管理</button>
+        <button class="tab-item" data-tab="skills">技能管理</button>
+         <button class="tab-item" data-tab="tasks">定时任务</button>
+        <button class="tab-item" data-tab="channels">IM 插件</button>      
+        <button class="tab-item" data-tab="apikeys">模型配置</button>
+        <button class="tab-item" data-tab="env">环境变量</button>
+        <button class="tab-item" data-tab="config">配置管理</button>
+        <button class="tab-item" data-tab="mcp">MCP 服务器</button>
+        <button class="tab-item" data-tab="profiles">配置档案</button>
+        <button class="tab-item" data-tab="logs">日志查看</button>
+      </nav>
+      <div class="tab-content" id="tab-content">
+        <!-- Dynamic tab content injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Modal Overlay -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 id="modal-title"></h3>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config/defaults.js"></script>
+  <script src="js/utils/providers-data.js"></script>
+  <script src="js/utils/i18n.js"></script>
+  <script src="js/utils/dom-helpers.js"></script>
+  <script src="js/utils/toast.js"></script>
+  <script src="js/wizard/step-welcome.js"></script>
+  <script src="js/wizard/step-check.js"></script>
+  <script src="js/wizard/step-install.js"></script>
+  <script src="js/wizard/step-configure.js"></script>
+  <script src="js/wizard/step-complete.js"></script>
+  <script src="js/wizard/wizard-controller.js"></script>
+  <script src="js/dashboard/tab-status.js"></script>
+  <script src="js/dashboard/tab-apikeys.js"></script>
+  <script src="js/dashboard/tab-env.js"></script>
+  <script src="js/dashboard/tab-config.js"></script>
+  <script src="js/dashboard/tab-service.js"></script>
+  <script src="js/dashboard/tab-logs.js"></script>
+  <script src="js/dashboard/tab-mcp.js"></script>
+  <script src="js/dashboard/tab-profiles.js"></script>
+  <script src="js/dashboard/tab-skills.js"></script>
+  <script src="js/dashboard/tab-channels.js"></script>
+  <script src="js/dashboard/tab-tasks.js"></script>
+  <script src="js/dashboard/tab-chat.js"></script>
+  <script src="js/dashboard/dashboard-controller.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

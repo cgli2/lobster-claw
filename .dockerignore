@@ -1,0 +1,34 @@
+# ==============================================================================
+# Docker 构建排除文件
+# ==============================================================================
+
+# 依赖和构建输出
+node_modules/
+dist/
+
+# 版本控制
+.git/
+.gitignore
+
+# IDE 和系统文件
+.DS_Store
+Thumbs.db
+*.log
+nul
+
+# 项目特定排除
+.qoder/
+docs/
+scripts/temp/
+
+# 文档文件 (构建不需要)
+*.md
+
+# 测试和临时文件
+chat-fix-testing-guide.md
+fix-summary.md
+test-wizard.js
+
+# 备份文件
+*.bak
+*.bak2

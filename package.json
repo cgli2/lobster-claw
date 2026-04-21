@@ -1,0 +1,74 @@
+{
+  "name": "openclaw-installer-manager",
+  "version": "1.0.0",
+  "description": "OpenClaw 安装管理器 - 一键安装与全面管理",
+  "main": "src/main/main.js",
+  "productName": "OpenClaw安装管理器",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --win --x64",
+    "build:dir": "electron-builder --dir",
+    "build:portable": "electron-builder --win portable",
+    "build:mac": "electron-builder --mac",
+    "build:mac:x64": "electron-builder --mac --x64",
+    "build:mac:arm64": "electron-builder --mac --arm64",
+    "build:all": "electron-builder --win --x64 --mac"
+  },
+  "build": {
+    "appId": "com.openclaw.installer",
+    "productName": "OpenClaw安装管理器",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/skills",
+        "to": "skills"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": "x64"
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "electronLanguages": [
+      "en-US",
+      "zh-CN"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "OpenClaw安装管理器"
+    },
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
+    }
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "electron-store": "^10.0.0"
+  },
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.5"
+  },
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,479 @@
+/* Wizard Layout */
+.wizard-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.wizard-sidebar {
+  width: 240px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.wizard-logo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  background: linear-gradient(135deg, var(--accent), #7c4dff);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.wizard-logo h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.wizard-logo .subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Step Indicator */
+.wizard-steps {
+  flex: 1;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  color: var(--text-muted);
+  font-size: 14px;
+  position: relative;
+  transition: color var(--transition);
+}
+
+.step-item::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  width: 2px;
+  height: 24px;
+  background: var(--border);
+}
+
+.step-item:last-child::before {
+  display: none;
+}
+
+.step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: transparent;
+  flex-shrink: 0;
+  transition: all var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.step-item.active {
+  color: var(--accent);
+}
+.step-item.active .step-dot {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(79,195,247,0.4);
+}
+
+.step-item.completed {
+  color: var(--success);
+}
+.step-item.completed .step-dot {
+  border-color: var(--success);
+  background: var(--success);
+}
+.step-item.completed::before {
+  background: var(--success);
+}
+
+/* Wizard Content Area */
+.wizard-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.wizard-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.wizard-content .step-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* Install progress */
+.install-terminal {
+  background: #111122;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-y: auto;
+  max-height: 340px;
+  flex: 1;
+  margin: 16px 0;
+  color: var(--text-secondary);
+}
+.install-terminal .term-line { margin-bottom: 2px; }
+.install-terminal .term-line.term-error { color: var(--danger); }
+.install-terminal .term-line.term-success { color: var(--success); }
+.install-terminal .term-line.term-info { color: var(--accent); }
+
+/* Mode Selector Cards */
+.check-section {
+  margin-bottom: 24px;
+}
+
+.check-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check-section-title .section-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.wsl-status-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.wsl-status-card.status-ok {
+  border-color: var(--success);
+}
+
+.wsl-status-card.status-missing {
+  border-color: var(--warning);
+}
+
+.wsl-distro-list {
+  margin: 8px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wsl-distro-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 2px 0;
+}
+
+.mode-selector {
+  display: flex;
+  gap: 16px;
+}
+
+.mode-option {
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.mode-option:hover:not(.disabled) {
+  border-color: var(--text-muted);
+}
+
+.mode-option.selected {
+  border-color: var(--accent);
+  background: rgba(79, 195, 247, 0.05);
+}
+
+.mode-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mode-option-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.mode-option-header .mode-radio {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  transition: all var(--transition);
+}
+
+.mode-option.selected .mode-radio {
+  border-color: var(--accent);
+}
+
+.mode-option.selected .mode-radio::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.mode-option-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mode-badge {
+  font-size: 11px;
+  padding: 1px 6px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.mode-option-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.mode-unavailable-msg {
+  font-size: 12px;
+  color: var(--warning);
+  margin-top: 6px;
+}
+
+/* Mode deps result */
+.mode-deps-result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dep-check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.dep-check-icon {
+  font-size: 16px;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.dep-check-icon.ok { color: var(--success); }
+.dep-check-icon.fail { color: var(--danger); }
+.dep-check-icon.warn { color: var(--warning); }
+
+.dep-check-info {
+  flex: 1;
+}
+
+.dep-check-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.dep-check-detail {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Config form sections */
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.config-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.config-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition);
+}
+
+.config-section-header:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.config-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.config-section-toggle {
+  font-size: 12px;
+  color: var(--text-muted);
+  transition: transform var(--transition);
+}
+
+.config-section.collapsed .config-section-toggle {
+  transform: rotate(-90deg);
+}
+
+.config-section-body {
+  padding: 0 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.config-section.collapsed .config-section-body {
+  display: none;
+}
+
+.config-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.config-field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.config-field .field-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.config-field input,
+.config-field select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.config-field input:focus,
+.config-field select:focus {
+  border-color: var(--accent);
+}
+
+.config-field input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Mode indicator in install step */
+.mode-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(79, 195, 247, 0.1);
+  border: 1px solid rgba(79, 195, 247, 0.3);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+/* WSL 状态（嵌入在 mode-option 内） */
+.wsl-mode-status {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+.wsl-mode-status.status-ok {
+  background: rgba(var(--success-rgb, 72, 199, 142), 0.08);
+  border: 1px solid rgba(72, 199, 142, 0.3);
+}
+
+.wsl-mode-status.status-missing {
+  background: rgba(255, 179, 0, 0.06);
+  border: 1px solid rgba(255, 179, 0, 0.3);
+}
+
+.wsl-mode-status .wsl-distro-list {
+  margin-top: 4px;
+}

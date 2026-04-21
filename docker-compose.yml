@@ -1,0 +1,104 @@
+# ==============================================================================
+# OpenClaw 安装管理器 - Docker Compose 构建配置
+# ==============================================================================
+
+services:
+  # --------------------------------------------------------------------------
+  # build-app: 完整构建模式 (Windows)
+  # 在容器内执行完整构建，输出到本地 ./dist 目录
+  # 使用方式: docker compose run --rm build-app
+  # --------------------------------------------------------------------------
+  build-app:
+    build:
+      context: .
+      target: builder
+    volumes:
+      # 将构建输出挂载到本地 dist 目录
+      - ./dist:/app/dist
+    command: npm run build
+
+  # --------------------------------------------------------------------------
+  # build-mac: macOS 构建模式
+  # 在 Linux 容器中交叉编译 macOS 应用 (.dmg)
+  # 注意：生成的是未签名的 .dmg，用户首次打开需要右键 → 打开
+  # 使用方式: docker compose run --rm build-mac
+  # --------------------------------------------------------------------------
+  build-mac:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - ./dist:/app/dist
+    command: >
+      sh -c "
+        sed -i 's/filter-locales\\.bat/filter-locales.sh/g' electron-builder.yml &&
+        chmod +x scripts/filter-locales.sh 2>/dev/null || true &&
+        npm run build:mac
+      "
+    environment:
+      - USE_SYSTEM_GENISOIMAGE=true
+
+  # --------------------------------------------------------------------------
+  # build-all: 全平台构建模式 (Windows + macOS)
+  # 同时构建 Windows 和 macOS 安装包
+  # 使用方式: docker compose run --rm build-all
+  # --------------------------------------------------------------------------
+  build-all:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - ./dist:/app/dist
+    command: >
+      sh -c "
+        sed -i 's/filter-locales\\.bat/filter-locales.sh/g' electron-builder.yml &&
+        chmod +x scripts/filter-locales.sh 2>/dev/null || true &&
+        npm run build:all
+      "
+    environment:
+      - USE_SYSTEM_GENISOIMAGE=true
+
+  # --------------------------------------------------------------------------
+  # build-dev: 开发构建模式
+  # 挂载本地源码，适合频繁修改和调试
+  # 使用方式: docker compose run --rm build-dev
+  # --------------------------------------------------------------------------
+  build-dev:
+    build:
+      context: .
+      target: base
+    volumes:
+      # 挂载整个项目目录
+      - .:/app
+      # 使用命名卷存储 node_modules，避免覆盖容器内依赖
+      - node_modules:/app/node_modules
+    command: >
+      sh -c "
+        # 处理 afterPack 脚本兼容性
+        sed -i 's/filter-locales\\.bat/filter-locales.sh/g' electron-builder.yml &&
+        chmod +x scripts/filter-locales.sh 2>/dev/null || true &&
+        # 安装依赖并构建
+        npm install &&
+        npm run build
+      "
+
+  # --------------------------------------------------------------------------
+  # shell: 交互式 Shell
+  # 进入容器进行调试
+  # 使用方式: docker compose run --rm shell
+  # --------------------------------------------------------------------------
+  shell:
+    build:
+      context: .
+      target: base
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+
+# 命名卷定义
+volumes:
+  node_modules:
+    name: openclaw-builder-node-modules

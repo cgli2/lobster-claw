@@ -1,0 +1,53 @@
+appId: com.openclaw.installer
+productName: OpenClaw安装管理器
+directories:
+  output: dist
+  buildResources: build
+files:
+  - src/**/*
+  - package.json
+
+# 所有平台共享的资源
+extraResources:
+  - from: resources/skills
+    to: skills
+
+electronLanguages:
+  - en-US
+  - zh-CN
+
+# Windows 配置
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+  # Windows 特有资源（gitbash 和 nodejs 安装包）
+  extraResources:
+    - from: resources/gitbash
+      to: gitbash
+    - from: resources/nodejs
+      to: nodejs
+
+# macOS 配置
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  icon: build/icon.png
+  category: public.app-category.utilities
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: OpenClaw安装管理器
+afterPack: "scripts/filter-locales.bat"
+electronDownload:
+  mirror: https://npmmirror.com/mirrors/electron/
